@@ -166,10 +166,10 @@ class HarmonicModel:
 
         # Периоды для разных гармоник
         periods = [
-            90.0 / n_points,
-            45.0 / n_points,
-            30.0 / n_points,
-            20.0 / n_points,
+            360.0 / n_points,
+            180.0 / n_points,
+            60.0 / n_points,
+            35.0 / n_points,
             15.0 / n_points
         ]
 
