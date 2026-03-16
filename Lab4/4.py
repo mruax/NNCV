@@ -648,7 +648,7 @@ def main():
     print("ЗАГРУЗКА ДАННЫХ")
     print("=" * 80)
 
-    filepath = 'Heineken NV Stock Price History.csv'
+    filepath = '../Lab5/Heineken NV Stock Price History.csv'
     if not os.path.exists(filepath):
         filepath = 'Heineken_NV_Stock_Price_History.csv'
     if not os.path.exists(filepath):
