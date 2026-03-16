@@ -1,0 +1,42 @@
+{
+  "параметры_по_уровням": {
+    "Простой (контрастный фон)": {
+      "blur_sigma": 1.0,
+      "blur_size": 3,
+      "edge_method": "gradient",
+      "threshold": 0.25,
+      "dilate_radius": 1,
+      "min_area": 50
+    },
+    "Средний (градиентный фон)": {
+      "blur_sigma": 2.0,
+      "blur_size": 5,
+      "edge_method": "gradient",
+      "threshold": 0.2,
+      "dilate_radius": 2,
+      "min_area": 40
+    },
+    "Сложный (шум, низкий контраст)": {
+      "blur_sigma": 3.0,
+      "blur_size": 7,
+      "edge_method": "gradient",
+      "threshold": 0.25,
+      "dilate_radius": 3,
+      "min_area": 80
+    }
+  },
+  "результаты": {
+    "Простой (контрастный фон)": {
+      "n_objects": 2,
+      "edge_method": "Градиент (√(Gx²+Gy²))"
+    },
+    "Средний (градиентный фон)": {
+      "n_objects": 2,
+      "edge_method": "Градиент (√(Gx²+Gy²))"
+    },
+    "Сложный (шум, низкий контраст)": {
+      "n_objects": 1,
+      "edge_method": "Градиент (√(Gx²+Gy²))"
+    }
+  }
+}
