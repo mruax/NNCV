@@ -62,6 +62,47 @@ def generate_cat_silhouette(n_points=600):
     return r * np.cos(t), r * np.sin(t)
 
 
+def generate_random_complex_contour(n_points=600, max_freq=12, seed=None):
+    """
+    Генерирует случайный сложный замкнутый контур без самопересечений.
+    Использует сумму тригонометрических гармоник в полярных координатах.
+
+    max_freq: максимальная частота гармоник (влияет на "изрезанность").
+    seed: для воспроизводимости (если нужно).
+    """
+    rng = np.random.RandomState(seed)
+    t = np.linspace(0, 2 * np.pi, n_points, endpoint=False)
+
+    # Базовый радиус
+    r = np.ones_like(t) * 1.5
+
+    # Накладываем случайные гармоники
+    for k in range(1, max_freq + 1):
+        # Амплитуда затухает с ростом частоты, чтобы контур не превратился в "шум"
+        # Меняя делитель (например, k**0.8 или k**1.2), можно регулировать гладкость
+        amplitude = rng.uniform(0.1, 0.5) / (k ** 0.8)
+        phase = rng.uniform(0, 2 * np.pi)
+
+        # Случайно выбираем синус или косинус
+        if rng.choice([True, False]):
+            r += amplitude * np.cos(k * t + phase)
+        else:
+            r += amplitude * np.sin(k * t + phase)
+
+    # Защита от прохождения через центр (и образования "петель")
+    # Радиус всегда должен быть строго положительным
+    r = np.clip(r, 0.2, None)
+
+    x = r * np.cos(t)
+    y = r * np.sin(t)
+
+    # Центрируем контур по массе
+    x -= np.mean(x)
+    y -= np.mean(y)
+
+    return x, y
+
+
 # ============================================================
 # 2. Параболическая кривая (обобщённая)
 # ============================================================
@@ -469,6 +510,12 @@ if __name__ == '__main__':
     cx, cy = generate_cat_silhouette(600)
     _, m = run_experiment("Кошка силуэт", cx, cy, n_parabolas=14, n_iter=40)
     all_metrics['Кошка'] = m
+
+    # --- Тест 5: Случайный сложный контур ---
+    cx, cy = generate_random_complex_contour(600, max_freq=10)
+    # n_parabolas берем побольше, так как фигура сложная
+    _, m = run_experiment("Случайный контур", cx, cy, n_parabolas=18, n_iter=50)
+    all_metrics['Случайный'] = m
 
     # === СВОДНАЯ ТАБЛИЦА ===
     print(f"\n\n{'=' * 75}")
