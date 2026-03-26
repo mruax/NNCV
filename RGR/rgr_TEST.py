@@ -393,10 +393,9 @@ if __name__ == '__main__':
     # Увеличиваем n_parabolas до 25+, так как фигура очень изрезанная
     # Увеличиваем n_iter до 60, чтобы алгоритм успел "растащить" параболы по пикам
     print("Запуск эксперимента с ультра-сложной фигурой...")
-    parabolas, history = decompose_contour(cx, cy, n_parabolas=40, n_iter=60, epochs=150)
+    parabolas, history = decompose_contour(cx, cy, n_parabolas=25, n_iter=60, epochs=150)  # 25->40
 
     # 3. Выводим результат
     metrics = compute_metrics(cx, cy, parabolas)
-    print_metrics(metrics, "Ультра-сложный контур")
     plot_decomposition(cx, cy, parabolas, title="Экстремальная сложность")
     plt.show()
